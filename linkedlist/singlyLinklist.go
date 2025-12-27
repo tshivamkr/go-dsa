@@ -113,3 +113,40 @@ func (sll *SinglyLL[T]) IsCyclicSLL() bool {
 	}
 	return false
 }
+
+func (sll *SinglyLL[T]) DeleteAtEnd() (T, bool) {
+	var deleted T
+	if sll.head == nil {
+		return deleted, false
+	}
+
+	if sll.head.Next == nil {
+		deleted = sll.head.Val
+		sll.head = nil
+		return deleted, true
+	}
+
+	currNode := sll.head
+	for currNode.Next.Next != nil {
+		currNode = currNode.Next
+	}
+
+	deleted = currNode.Next.Val
+	currNode.Next = nil
+	return deleted, true
+}
+
+func (sll *SinglyLL[T]) Last() (T, bool) {
+	var val T
+
+	if sll.head == nil {
+		return val, false
+	}
+
+	currNode := sll.head
+	for currNode.Next != nil {
+		currNode = currNode.Next
+	}
+
+	return currNode.Val, true
+}
